@@ -1,4 +1,4 @@
-package main
+package array
 
 func rotate(nums []int, k int) {
 	if len(nums) <= 1 || k == 0 {
