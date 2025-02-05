@@ -11,6 +11,9 @@ type ListNode struct {
 }
 
 func parseToListNodes(s string) *ListNode {
+	if s == "" {
+		return nil
+	}
 	numbers := strings.Split(s, ",")
 	var head *ListNode
 	var cur = &ListNode{}
@@ -31,4 +34,14 @@ func parseToListNodes(s string) *ListNode {
 		}
 	}
 	return head
+}
+
+func (l *ListNode) String() string {
+	cur := l
+	var result []string
+	for cur != nil {
+		result = append(result, strconv.Itoa(cur.Val))
+		cur = cur.Next
+	}
+	return strings.Join(result, ",")
 }
