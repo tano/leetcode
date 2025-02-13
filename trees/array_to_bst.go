@@ -8,7 +8,11 @@ func sortedArrayToBST(nums []int) *TreeNode {
 
 func sliceToBST(nums []int, node *TreeNode) {
 	numsLen := len(nums)
-	if numsLen <= 1 {
+	if numsLen < 1 {
+		return
+	}
+	if numsLen == 1 {
+		node.Val = nums[0]
 		return
 	}
 	if numsLen == 2 {

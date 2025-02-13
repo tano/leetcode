@@ -51,6 +51,19 @@ func Test_sortedArrayToBST(t *testing.T) {
 				return root
 			}(),
 		},
+		{
+			name: "4",
+			args: args{
+				nums: []int{-1, 0, 1, 2},
+			},
+			want: func() *TreeNode {
+				root := &TreeNode{Val: 1}
+				root.Left = &TreeNode{Val: 0}
+				root.Left.Left = &TreeNode{Val: -1}
+				root.Right = &TreeNode{Val: 2}
+				return root
+			}(),
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
