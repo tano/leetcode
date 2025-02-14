@@ -12,28 +12,21 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 		nums1[idx1] = nums2[idx2]
 		return
 	}
-	for idx1 < m {
-		if nums1[idx1] < nums2[idx2] {
-			idx1++
-		} else {
-			shiftRight(nums1, idx1)
-			nums1[idx1] = nums2[idx2]
-			idx2++
-			idx1++
-		}
-		if idx1 == m {
-			idx1++
-		}
-	}
-	for idx2 < n {
-		nums1[idx1] = nums2[idx2]
-		idx1++
-		idx2++
-	}
-}
+	var result []int
+	for idx1+idx2 < m+n {
 
-func shiftRight(nums []int, idx int) {
-	for i := len(nums) - 1; i > idx; i-- {
-		nums[i] = nums[i-1]
+		if idx1 < m && idx2 < n && nums1[idx1] < nums2[idx2] {
+			result = append(result, nums1[idx1])
+			idx1++
+		} else if idx2 < n {
+			result = append(result, nums2[idx2])
+			idx2++
+		} else if idx1 < m {
+			result = append(result, nums1[idx1])
+			idx1++
+		}
+	}
+	for i, num := range result {
+		nums1[i] = num
 	}
 }
