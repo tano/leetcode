@@ -22,36 +22,32 @@ func firstBadVersion(n int) int {
 			return 1
 		}
 	}
-	var versions []int
-	for i := range n {
-		versions = append(versions, i+1)
-	}
-	return findInSlice(versions)
+	return find(1, n)
 }
 
-func findInSlice(versions []int) int {
-	if len(versions) == 1 {
-		return versions[0]
+func find(startIndex, endIndex int) int {
+	if startIndex == endIndex {
+		return startIndex
 	}
-	if len(versions) == 2 {
-		if isBadVersion(versions[0]) {
-			return versions[0]
+	if endIndex-startIndex == 1 {
+		if isBadVersion(startIndex) {
+			return startIndex
 		} else {
-			return versions[1]
+			return endIndex
 		}
 	}
-	middle := len(versions) / 2
-	if isBadVersion(versions[middle]) {
-		if !isBadVersion(versions[middle-1]) {
-			return versions[middle]
+	middle := (endIndex + startIndex) / 2
+	if isBadVersion(middle) {
+		if !isBadVersion(middle) {
+			return middle
 		} else {
-			return findInSlice(versions[:middle])
+			return find(startIndex, middle)
 		}
 	} else {
-		if isBadVersion(versions[middle+1]) {
-			return versions[middle+1]
+		if isBadVersion(middle + 1) {
+			return middle + 1
 		} else {
-			return findInSlice(versions[middle:])
+			return find(middle+1, endIndex)
 		}
 	}
 }
