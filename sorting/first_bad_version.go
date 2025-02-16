@@ -24,12 +24,22 @@ func firstBadVersion(n int) int {
 	}
 	var versions []int
 	for i := range n {
-		versions = append(versions, i)
+		versions = append(versions, i+1)
 	}
 	return findInSlice(versions)
 }
 
 func findInSlice(versions []int) int {
+	if len(versions) == 1 {
+		return versions[0]
+	}
+	if len(versions) == 2 {
+		if isBadVersion(versions[0]) {
+			return versions[0]
+		} else {
+			return versions[1]
+		}
+	}
 	middle := len(versions) / 2
 	if isBadVersion(versions[middle]) {
 		if !isBadVersion(versions[middle-1]) {

@@ -16,9 +16,34 @@ func Test_firstBadVersion(t *testing.T) {
 			name: "test1",
 			args: args{n: 5},
 			checkerFn: func(version int) bool {
-				return version > 4
+				return version >= 4
 			},
 			want: 4,
+		},
+		{
+			name: "test2",
+			args: args{n: 3},
+			checkerFn: func(version int) bool {
+				return version >= 3
+			},
+			want: 3,
+		},
+		{
+			name: "test3",
+			args: args{n: 3},
+			checkerFn: func(version int) bool {
+				return version >= 1
+			},
+			want: 1,
+		},
+
+		{
+			name: "test4",
+			args: args{n: 2_126_753_390},
+			checkerFn: func(version int) bool {
+				return version >= 1_702_766_719
+			},
+			want: 1_702_766_719,
 		},
 	}
 	for _, tt := range tests {
