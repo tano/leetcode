@@ -3,45 +3,25 @@ package dynamic
 import "math"
 
 func maxProfit(prices []int) int {
-	buyingDay, sellingDay := 0, 0
+	sellPrice := 0
+	buyPrice := math.MaxInt
+	buyPtr, sellPtr := 0, len(prices)-1
 	profit := 0
-	maxSellPrice, minBuyPrice := 0, math.MaxInt
-	stockBought := false
 
-	for i := 0; i < len(prices); i++ {
-		price := prices[i]
-
-		if price < minBuyPrice {
-			minBuyPrice = price
-			if !stockBought {
-				buyingDay = i
-			}
-		} else {
-			if !stockBought {
-				stockBought = true
-				maxSellPrice = prices[buyingDay]
-				sellingDay = buyingDay
-			}
+	for buyPtr <= sellPtr {
+		if prices[buyPtr] < buyPrice {
+			buyPrice = prices[buyPtr]
 		}
-
-		if price > maxSellPrice {
-			maxSellPrice = price
-			sellingDay = i
-		} else {
-			if stockBought {
-				stockBought = false
-				profit = prices[sellingDay] - prices[buyingDay]
-			}
+		if prices[sellPtr] > sellPrice {
+			sellPrice = prices[sellPtr]
 		}
-
-		if i == len(prices)-1 && stockBought {
-			return price - prices[buyingDay]
+		potentialProfit := sellPrice - buyPrice
+		if potentialProfit > profit {
+			profit = potentialProfit
 		}
+		buyPtr++
+		sellPtr--
 	}
 
-	if profit > 0 {
-		return profit
-	}
-
-	return 0
+	return profit
 }

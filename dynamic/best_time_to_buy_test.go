@@ -58,6 +58,24 @@ func Test_maxProfit(t *testing.T) {
 			},
 			want: 1,
 		},
+		{
+			name: "6",
+			args: args{
+				prices: []int{
+					3, 3, 5, 0, 0, 3, 1, 4,
+				},
+			},
+			want: 4,
+		},
+		{
+			name: "7",
+			args: args{
+				prices: []int{
+					3, 2, 6, 5, 0, 3,
+				},
+			},
+			want: 4,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
