@@ -3,25 +3,22 @@ package dynamic
 import "math"
 
 func maxProfit(prices []int) int {
-	sellPrice := 0
-	buyPrice := math.MaxInt
-	buyPtr, sellPtr := 0, len(prices)-1
 	profit := 0
-
-	for buyPtr <= sellPtr {
-		if prices[buyPtr] < buyPrice {
-			buyPrice = prices[buyPtr]
+	minBuyPrice := math.MaxInt
+	for buyPtr := 0; buyPtr < len(prices)-1; buyPtr++ {
+		if prices[buyPtr] < minBuyPrice {
+			minBuyPrice = prices[buyPtr]
+		} else {
+			continue
 		}
-		if prices[sellPtr] > sellPrice {
-			sellPrice = prices[sellPtr]
+		for sellPtr := buyPtr + 1; sellPtr < len(prices); sellPtr++ {
+			if prices[sellPtr] > prices[buyPtr] {
+				potentialProfit := prices[sellPtr] - prices[buyPtr]
+				if potentialProfit > profit {
+					profit = potentialProfit
+				}
+			}
 		}
-		potentialProfit := sellPrice - buyPrice
-		if potentialProfit > profit {
-			profit = potentialProfit
-		}
-		buyPtr++
-		sellPtr--
 	}
-
 	return profit
 }
