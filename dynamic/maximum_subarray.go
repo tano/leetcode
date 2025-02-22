@@ -13,7 +13,7 @@ func maxSubArray(nums []int) int {
 	sum := math.MinInt
 	cache := map[key]int{}
 	for i := 0; i < len(nums); i++ {
-		for j := len(nums); j > i; j-- {
+		for j := len(nums); j >= i; j-- {
 			currentSum := calculateSum(i, j, nums, cache)
 			if currentSum > sum {
 				sum = currentSum
@@ -29,10 +29,10 @@ func calculateSum(begin int, end int, nums []int, cache map[key]int) int {
 	if ok {
 		return sum
 	} else {
-		candidate := nums[begin:end]
 		result := 0
-		for i := 0; i < len(candidate); i++ {
-			result += candidate[i]
+		for i := begin; i < end; i++ {
+			result += nums[i]
+			cache[key{begin, i}] = result
 		}
 		cache[k] = result
 		return result
